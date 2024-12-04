@@ -31,7 +31,8 @@ public class App {
 
         massButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new MassConverter();
+                MassConverter converter = new MassConverter();
+                converter.setVisible(true); 
             }
         });
 
