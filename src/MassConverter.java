@@ -91,13 +91,6 @@ public class MassConverter extends JFrame {
         // Inisialisasi animator
         animationTimer = new ValueAnimator();
 
-        // Mengubah font untuk semua komponen
-        Font font = new Font("Arial", Font.PLAIN, 14);
-        for (Component comp : getContentPane().getComponents()) {
-            if (comp instanceof JLabel || comp instanceof JTextField || comp instanceof JButton || comp instanceof JComboBox) {
-                comp.setFont(font);
-            }
-        }
 
         // Menambahkan event listener
         convertButton.addActionListener(new ActionListener() {
