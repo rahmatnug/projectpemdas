@@ -3,9 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MassConverter extends JFrame {
+    private JTextField inputTextField;
     private JComboBox<String> fromUnitComboBox;
     private JComboBox<String> toUnitComboBox;
-    private JTextField inputTextField;
     private JTextField resultTextField;
     private JButton convertButton;
     private ValueAnimator animationTimer;
@@ -61,7 +61,7 @@ public class MassConverter extends JFrame {
     public MassConverter() {
         // Pengaturan dasar frame
         setTitle("Konversi Berat");
-        setSize(450, 300);
+        setSize(480, 330);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
 
@@ -74,16 +74,18 @@ public class MassConverter extends JFrame {
         resultTextField.setEditable(false);
 
         // Menambahkan komponen ke frame
+        add(new JLabel("Masukkan Nilai:"));
+        add(inputTextField);
         add(new JLabel("Dari Satuan:"));
         add(fromUnitComboBox);
         add(new JLabel("Ke Satuan:"));
         add(toUnitComboBox);
-        add(new JLabel("Masukkan Nilai:"));
-        add(inputTextField);
         add(convertButton);
         add(new JLabel("Hasil Konversi:"));
         add(resultTextField);
-        
+
+
+        setVisible(true);
             
 
         // Inisialisasi animator
@@ -143,9 +145,6 @@ public class MassConverter extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MassConverter converter = new MassConverter();
-            converter.setVisible(true);
-        });
+        SwingUtilities.invokeLater(MassConverter::new);
     }
 }
