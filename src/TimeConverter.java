@@ -22,12 +22,6 @@ public class TimeConverter extends JFrame {
         convertButton = new JButton("Convert");
         resultLabel = new JLabel("Result: ");
 
-        convertButton.setEnabled(false); // Disable button initially
-
-        // Add action listeners
-        inputField.addActionListener(e -> checkInput());
-        fromUnit.addActionListener(e -> checkInput());
-        toUnit.addActionListener(e -> checkInput());
         convertButton.addActionListener(new ConvertAction());
 
         add(new JLabel("Input:"));
@@ -42,20 +36,6 @@ public class TimeConverter extends JFrame {
         setVisible(true);
     }
 
-    private void checkInput() {
-        String inputText = inputField.getText();
-        if (!inputText.isEmpty()) {
-            double inputValue = Double.parseDouble(inputText);
-            String from = (String) fromUnit.getSelectedItem();
-            String to = (String) toUnit.getSelectedItem();
-
-            // Enable button only if input is valid and units are different
-            convertButton.setEnabled(inputValue != 0 && !from.equals(to));
-        } else {
-            convertButton.setEnabled(false);
-        }
-    }
-
     private class ConvertAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -65,45 +45,27 @@ public class TimeConverter extends JFrame {
 
             double result = convertTime(inputValue, from, to);
             resultLabel.setText("Result: " + result);
-            animateConversion();
         }
     }
 
     private double convertTime(double value, String from, String to) {
-        // Konversi input value ke detik
         double seconds = switch (from) {
             case "Seconds" -> value;
             case "Minutes" -> value * 60;
             case "Hours" -> value * 3600;
             case "Days" -> value * 86400;
-            case "Months" -> value * (365.0 / 12.0) * 86400; // 1 bulan = 30.4167 hari
+            case "Months" -> value * (365.0 / 12.0) * 86400;
             default -> throw new IllegalArgumentException("Invalid time unit");
         };
-    
-        // Konversi detik ke satuan target
+
         return switch (to) {
             case "Seconds" -> seconds;
             case "Minutes" -> seconds / 60;
             case "Hours" -> seconds / 3600;
             case "Days" -> seconds / 86400;
-            case "Months" -> seconds / (30.4167 * 86400); // Rata-rata detik dalam sebulan
+            case "Months" -> seconds / (30.4167 * 86400);
             default -> throw new IllegalArgumentException("Invalid time unit");
         };
-    }
-
-    private void animateConversion() {
-        // Simple animation effect (for demonstration purposes)
-        new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
-                resultLabel.setForeground(i % 2 == 0 ? Color.RED : Color.BLACK);
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            resultLabel.setForeground(Color.BLACK); // Reset color
-        }).start();
     }
 
     public static void main(String[] args) {
