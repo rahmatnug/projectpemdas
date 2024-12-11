@@ -2,18 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MassConverter extends JFrame {
+public class MassConverter {
+    private JFrame frame;
     private JTextField inputTextField;
     private JComboBox<String> fromUnitComboBox;
     private JComboBox<String> toUnitComboBox;
-    private JTextField resultTextField;
     private JButton convertButton;
-    private ValueAnimator animationTimer;
+    private JLabel resultLabel;
 
-    // Satuan massa yang tersedia
     private String[] massUnits = {"kg", "hg", "dg", "g", "dag", "cg", "mg", "ton"};
-
-    // Faktor konversi ke gram (satuan dasar)
     private double[] conversionFactors = {
         1000.0,    // kg
         100.0,     // hg
@@ -25,74 +22,30 @@ public class MassConverter extends JFrame {
         1000000.0  // ton
     };
 
-    // Kelas khusus untuk animasi nilai
-    private class ValueAnimator {
-        private Timer timer;
-        private double currentValue = 0;
-        private double targetValue = 0;
-        private int stepCount = 0;
-
-        public ValueAnimator() {
-            timer = new Timer(50, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (stepCount < 20) {
-                        // Interpolasi linier untuk animasi
-                        currentValue += (targetValue - currentValue) * 0.2;
-                        resultTextField.setText(String.format("%.4f", currentValue));
-                        stepCount++;
-                    } else {
-                        // Hentikan animasi
-                        timer.stop();
-                        resultTextField.setText(String.format("%.4f", targetValue));
-                    }
-                }
-            });
-        }
-
-        public void startAnimation(double target) {
-            currentValue = 0;
-            targetValue = target;
-            stepCount = 0;
-            timer.start();
-        }
-    }
-
     public MassConverter() {
-        // Pengaturan dasar frame
-        setTitle("Konversi Berat");
-        setSize(480, 330);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new FlowLayout());
+        frame = new JFrame("Konversi Massa");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
 
-        // Komponen input
         inputTextField = new JTextField(10);
         fromUnitComboBox = new JComboBox<>(massUnits);
         toUnitComboBox = new JComboBox<>(massUnits);
         convertButton = new JButton("Konversi");
-        resultTextField = new JTextField(10);
-        resultTextField.setEditable(false);
+        resultLabel = new JLabel("Hasil: ");
 
-        // Menambahkan komponen ke frame
-        add(new JLabel("Masukkan Nilai:"));
-        add(inputTextField);
-        add(new JLabel("Dari Satuan:"));
-        add(fromUnitComboBox);
-        add(new JLabel("Ke Satuan:"));
-        add(toUnitComboBox);
-        add(convertButton);
-        add(new JLabel("Hasil Konversi:"));
-        add(resultTextField);
+        JLabel inputLabel = new JLabel("Masukkan Nilai:");
+        JLabel fromLabel = new JLabel("Dari Satuan:");
+        JLabel toLabel = new JLabel("Ke Satuan:");
 
+        frame.add(inputLabel);
+        frame.add(inputTextField);
+        frame.add(fromLabel);
+        frame.add(fromUnitComboBox);
+        frame.add(toLabel);
+        frame.add(toUnitComboBox);
+        frame.add(convertButton);
+        frame.add(resultLabel);
 
-        setVisible(true);
-            
-
-        // Inisialisasi animator
-        animationTimer = new ValueAnimator();
-
-
-        // Menambahkan event listener
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,40 +53,19 @@ public class MassConverter extends JFrame {
             }
         });
 
-        // Listener untuk mengecek kondisi konversi
-        fromUnitComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateConvertButtonState();
-            }
-        });
-
-        toUnitComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateConvertButtonState();
-            }
-        });
-
-        // Update status tombol konversi awal
-        updateConvertButtonState();
+        frame.setSize(480, 330);
+        frame.setVisible(true);
     }
 
-    // Metode untuk mengecek dan mengupdate status tombol konversi
-    private void updateConvertButtonState() {
-        convertButton.setEnabled(!inputTextField.getText().isEmpty());
-    }
-
-    // Metode untuk melakukan konversi
     private void performConversion() {
         try {
             double inputValue = Double.parseDouble(inputTextField.getText());
- int fromIndex = fromUnitComboBox.getSelectedIndex();
+            int fromIndex = fromUnitComboBox.getSelectedIndex();
             int toIndex = toUnitComboBox.getSelectedIndex();
             double result = inputValue * (conversionFactors[fromIndex] / conversionFactors[toIndex]);
-            animationTimer.startAnimation(result);
+            resultLabel.setText("Hasil: " + result + " " + massUnits[toIndex]);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Masukkan nilai yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Masukkan nilai yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

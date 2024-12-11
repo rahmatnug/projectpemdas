@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LengthConverter {
+public class FrequencyConverter {
     private JFrame frame;
     private JTextField inputField;
     private JComboBox<String> inputUnitComboBox;
@@ -10,14 +10,14 @@ public class LengthConverter {
     private JButton convertButton;
     private JLabel resultLabel;
 
-    public LengthConverter() {
-        frame = new JFrame("Konversi Panjang");
+    public FrequencyConverter() {
+        frame = new JFrame("Konversi Frekuensi");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new FlowLayout());
 
         inputField = new JTextField(10);
-        inputUnitComboBox = new JComboBox<>(new String[]{"km", "hm", "dm", "m", "dam", "cm", "zm"});
-        outputUnitComboBox = new JComboBox<>(new String[]{"km", "hm", "dm", "m", "dam", "cm", "zm"});
+        inputUnitComboBox = new JComboBox<>(new String[]{"Hertz", "Kilohertz", "Megahertz"});
+        outputUnitComboBox = new JComboBox<>(new String[]{"Hertz", "Kilohertz", "Megahertz"});
         convertButton = new JButton("Konversi");
         resultLabel = new JLabel("Hasil: ");
 
@@ -41,11 +41,12 @@ public class LengthConverter {
                 String outputUnit = (String) outputUnitComboBox.getSelectedItem();
                 double outputValue;
 
-  
-                inputValue = convertToMeters(inputUnit, inputValue);
+
+                inputValue = convertToHertz(inputUnit, inputValue);
 
 
-                outputValue = convertFromMeters(outputUnit, inputValue);
+                outputValue = convertFromHertz(outputUnit, inputValue);
+
 
                 resultLabel.setText("Hasil: " + outputValue + " " + outputUnit);
             }
@@ -56,34 +57,26 @@ public class LengthConverter {
         frame.setSize(320, 330);
     }
 
-    private double convertToMeters(String unit, double value) {
+    private double convertToHertz(String unit, double value) {
         switch (unit.toLowerCase()) {
-            case "km": return value * 1000;
-            case "hm": return value * 100;
-            case "dm": return value * 0.1;
-            case "dam": return value * 10;
-            case "cm": return value * 0.01;
-            case "zm": return value * 0.001;
-            default: return value;
+            case "kilohertz": return value * 1000;
+            case "megahertz": return value * 1000000;
+            default: return value; // Hertz
         }
     }
 
-    private double convertFromMeters(String unit, double value) {
+    private double convertFromHertz(String unit, double value) {
         switch (unit.toLowerCase()) {
-            case "km": return value / 1000;
-            case "hm": return value / 100;
-            case "dm": return value / 0.1;
-            case "dam": return value / 10;
-            case "cm": return value / 0.01;
-            case "zm": return value / 0.001;
-            default: return value;
+            case "kilohertz": return value / 1000;
+            case "megahertz": return value / 1000000;
+            default: return value; // Hertz
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new LengthConverter();
+                new FrequencyConverter();
             }
         });
     }

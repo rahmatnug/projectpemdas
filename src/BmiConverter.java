@@ -11,11 +11,11 @@ public class BmiConverter {
         JButton calculateButton = new JButton("Hitung BMI");
         JLabel resultLabel = new JLabel("Hasil: ");
         
-        // Menambahkan label untuk berat badan
+
         JLabel weightLabel = new JLabel("Berat (kg):");
         weightLabel.setBounds(50, 20, 150, 30);
         
-        // Menambahkan label untuk tinggi badan
+
         JLabel heightLabel = new JLabel("Tinggi (m):");
         heightLabel.setBounds(50, 70, 150, 30);
 
@@ -45,7 +45,7 @@ public class BmiConverter {
 
                     double bmi = weight / (height * height); // Rumus BMI
 
-                    // Menentukan kategori berat badan
+                    
                     String category;
                     if (bmi < 18.5) {
                         category = "Berat badan kurang.";
@@ -57,7 +57,7 @@ public class BmiConverter {
                         category = "Obesitas.";
                     }
 
-                    // Format hasil BMI
+                 
                     DecimalFormat df = new DecimalFormat("#.##");
                     resultLabel.setText("Hasil: " + df.format(bmi) + " - " + category);
                 } catch (NumberFormatException ex) {

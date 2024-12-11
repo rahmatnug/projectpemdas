@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LengthConverter {
+public class VolumeConverter {
     private JFrame frame;
     private JTextField inputField;
     private JComboBox<String> inputUnitComboBox;
@@ -10,14 +10,14 @@ public class LengthConverter {
     private JButton convertButton;
     private JLabel resultLabel;
 
-    public LengthConverter() {
-        frame = new JFrame("Konversi Panjang");
+    public VolumeConverter() {
+        frame = new JFrame("Konversi Volume");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new FlowLayout());
 
         inputField = new JTextField(10);
-        inputUnitComboBox = new JComboBox<>(new String[]{"km", "hm", "dm", "m", "dam", "cm", "zm"});
-        outputUnitComboBox = new JComboBox<>(new String[]{"km", "hm", "dm", "m", "dam", "cm", "zm"});
+        inputUnitComboBox = new JComboBox<>(new String[]{"Liter", "Milliliter", "Cubic Meter", "Gallon"});
+        outputUnitComboBox = new JComboBox<>(new String[]{"Liter", "Milliliter", "Cubic Meter", "Gallon"});
         convertButton = new JButton("Konversi");
         resultLabel = new JLabel("Hasil: ");
 
@@ -41,11 +41,12 @@ public class LengthConverter {
                 String outputUnit = (String) outputUnitComboBox.getSelectedItem();
                 double outputValue;
 
-  
-                inputValue = convertToMeters(inputUnit, inputValue);
 
+                inputValue = convertToLiters(inputUnit, inputValue);
 
-                outputValue = convertFromMeters(outputUnit, inputValue);
+   
+                outputValue = convertFromLiters(outputUnit, inputValue);
+
 
                 resultLabel.setText("Hasil: " + outputValue + " " + outputUnit);
             }
@@ -56,34 +57,28 @@ public class LengthConverter {
         frame.setSize(320, 330);
     }
 
-    private double convertToMeters(String unit, double value) {
+    private double convertToLiters(String unit, double value) {
         switch (unit.toLowerCase()) {
-            case "km": return value * 1000;
-            case "hm": return value * 100;
-            case "dm": return value * 0.1;
-            case "dam": return value * 10;
-            case "cm": return value * 0.01;
-            case "zm": return value * 0.001;
-            default: return value;
+            case "milliliter": return value / 1000;
+            case "cubic meter": return value * 1000;
+            case "gallon": return value * 3.78541;
+            default: return value; 
         }
     }
 
-    private double convertFromMeters(String unit, double value) {
+    private double convertFromLiters(String unit, double value) {
         switch (unit.toLowerCase()) {
-            case "km": return value / 1000;
-            case "hm": return value / 100;
-            case "dm": return value / 0.1;
-            case "dam": return value / 10;
-            case "cm": return value / 0.01;
-            case "zm": return value / 0.001;
-            default: return value;
+            case "milliliter": return value * 1000;
+            case "cubic meter": return value / 1000;
+            case "gallon": return value / 3.78541;
+            default: return value; 
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new LengthConverter();
+                new VolumeConverter();
             }
         });
     }
