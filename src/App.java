@@ -80,7 +80,7 @@ public class App {
             }
         });
 
-        frame.setSize(1440, 1024);
+        frame.setSize(300, 500);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
