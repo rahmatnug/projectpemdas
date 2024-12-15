@@ -13,6 +13,8 @@ public class App {
         JButton volumeButton = new JButton("Konversi Volume");
         JButton frequencyButton = new JButton("Konversi Frekuensi");
         JButton numberBaseButton = new JButton("Konversi Angka");
+        JButton romannumeralButton = new JButton("Konversi Angka Romawi");
+        JButton dataButton= new JButton("Konversi Data");
 
         lengthButton.setBounds(50, 50, 200, 30);
         massButton.setBounds(50, 100, 200, 30);
@@ -22,6 +24,8 @@ public class App {
         volumeButton.setBounds(50, 300, 200, 30);
         frequencyButton.setBounds(50, 350, 200, 30);
         numberBaseButton.setBounds(50, 400, 200, 30);
+        romannumeralButton.setBounds(50, 450, 200, 30);
+        dataButton.setBounds(50, 500, 200, 30);
 
         frame.add(lengthButton);
         frame.add(massButton);
@@ -31,6 +35,8 @@ public class App {
         frame.add(volumeButton);
         frame.add(frequencyButton);
         frame.add(numberBaseButton);
+        frame.add(romannumeralButton);
+        frame.add(dataButton);
 
         lengthButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -80,7 +86,19 @@ public class App {
             }
         });
 
-        frame.setSize(300, 500);
+        romannumeralButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new RomanNumeralConverter();
+            }
+        });
+
+        dataButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new DataConverter();
+            }
+        });
+
+        frame.setSize(300, 600);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
