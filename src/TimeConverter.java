@@ -49,22 +49,22 @@ public class TimeConverter extends JFrame {
     }
 
     private double convertTime(double value, String from, String to) {
-        double seconds = switch (from) {
-            case "Detik" -> value;
-            case "Menit" -> value * 60;
-            case "Jam" -> value * 3600;
-            case "Hari" -> value * 86400;
-            case "Bulan" -> value * (365.0 / 12.0) * 86400;
-            default -> throw new IllegalArgumentException("Invalid time unit");
+        double days = switch (from) {
+            case "Detik" -> value / 86400; 
+            case "Menit" -> value / 1440; 
+            case "Jam" -> value / 24; 
+            case "Hari" -> value; 
+            case "Bulan" -> value * 30; 
+            default -> throw new IllegalArgumentException("Unit waktu tidak valid");
         };
-
+    
         return switch (to) {
-            case "Detik" -> seconds;
-            case "Menit" -> seconds / 60;
-            case "Jam" -> seconds / 3600;
-            case "Hari" -> seconds / 86400;
-            case "Bulan" -> seconds / (30.4167 * 86400);
-            default -> throw new IllegalArgumentException("Invalid time unit");
+            case "Detik" -> days * 86400; 
+            case "Menit" -> days * 1440; 
+            case "Jam" -> days * 24; 
+            case "Hari" -> days; 
+            case "Bulan" -> days / 30; 
+            default -> throw new IllegalArgumentException("Unit waktu tidak valid");
         };
     }
 
