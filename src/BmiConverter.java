@@ -33,7 +33,7 @@ public class BmiConverter {
                         return;
                     }
 
-                    double bmi = weight / (height * height); // Rumus BMI
+                    double bmi = weight / (height * height); 
 
                     String category;
                     if (bmi < 18.5) {
