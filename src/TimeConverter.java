@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimeConverter extends JFrame {
+public class TimeConverter {
+    private JFrame frame;
     private JTextField inputField;
     private JComboBox<String> fromUnit;
     private JComboBox<String> toUnit;
@@ -11,29 +12,29 @@ public class TimeConverter extends JFrame {
     private JLabel resultLabel;
 
     public TimeConverter() {
-        setTitle("Time Converter");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new FlowLayout());
+        frame = new JFrame("Konversi Waktu");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
 
         inputField = new JTextField(10);
         fromUnit = new JComboBox<>(new String[]{"Detik", "Menit", "Jam", "Hari", "Bulan", "Tahun"});
         toUnit = new JComboBox<>(new String[]{"Detik", "Menit", "Jam", "Hari", "Bulan", "Tahun"});
-        convertButton = new JButton("Convert");
-        resultLabel = new JLabel("Result: ");
+        convertButton = new JButton("Konversi");
+        resultLabel = new JLabel("Hasil: ");
 
         convertButton.addActionListener(new ConvertAction());
 
-        add(new JLabel("Input:"));
-        add(inputField);
-        add(new JLabel("From:"));
-        add(fromUnit);
-        add(new JLabel("To:"));
-        add(toUnit);
-        add(convertButton);
-        add(resultLabel);
+        frame.add(new JLabel("Input:"));
+        frame.add(inputField);
+        frame.add(new JLabel("Dari:"));
+        frame.add(fromUnit);
+        frame.add(new JLabel("Ke:"));
+        frame.add(toUnit);
+        frame.add(convertButton);
+        frame.add(resultLabel);
 
-        setVisible(true);
+        frame.setVisible(true);
     }
 
     private class ConvertAction implements ActionListener {
@@ -44,7 +45,7 @@ public class TimeConverter extends JFrame {
             String to = (String) toUnit.getSelectedItem();
 
             double result = convertTime(inputValue, from, to);
-            resultLabel.setText("Result: " + result);
+            resultLabel.setText("Hasil: " + result);
         }
     }
 
