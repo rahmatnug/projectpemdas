@@ -65,7 +65,7 @@ public class TimeConverter extends JFrame {
             case "Jam" -> seconds / 3600;
             case "Hari" -> seconds / 86400;
             case "Bulan" -> seconds / (30.4167 * 86400);
-            case "Tahun" -> value * (365.25 * 86400);
+            case "Tahun" -> seconds / (365.25 * 86400);
             default -> throw new IllegalArgumentException("Invalid time unit");
         };
     }
