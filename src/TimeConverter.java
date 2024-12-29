@@ -17,8 +17,8 @@ public class TimeConverter extends JFrame {
         setLayout(new FlowLayout());
 
         inputField = new JTextField(10);
-        fromUnit = new JComboBox<>(new String[]{"Detik", "Menit", "Jam", "Hari", "Bulan"});
-        toUnit = new JComboBox<>(new String[]{"Detik", "Menit", "Jam", "Hari", "Bulan"});
+        fromUnit = new JComboBox<>(new String[]{"Detik", "Menit", "Jam", "Hari", "Bulan", "Tahun"});
+        toUnit = new JComboBox<>(new String[]{"Detik", "Menit", "Jam", "Hari", "Bulan", "Tahun"});
         convertButton = new JButton("Convert");
         resultLabel = new JLabel("Result: ");
 
@@ -55,6 +55,7 @@ public class TimeConverter extends JFrame {
             case "Jam" -> value * 3600;
             case "Hari" -> value * 86400;
             case "Bulan" -> value * (30.4167 * 86400);
+            case "Tahun" -> value * (365.25 * 86400);
             default -> throw new IllegalArgumentException("Invalid time unit");
         };
 
@@ -64,6 +65,7 @@ public class TimeConverter extends JFrame {
             case "Jam" -> seconds / 3600;
             case "Hari" -> seconds / 86400;
             case "Bulan" -> seconds / (30.4167 * 86400);
+            case "Tahun" -> value * (365.25 * 86400);
             default -> throw new IllegalArgumentException("Invalid time unit");
         };
     }
